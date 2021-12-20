@@ -1,23 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {useEffect , useState} from 'react'
 
 function App() {
+
+  const [windowWidth , setWindowWidth] = useState(window.innerWidth);
+  const [name , setName] = useState("");
+
+  const updateWindowWidth = () => {
+    setWindowWidth(window.innerWidth)
+  }
+  //On every render when the screen is resize
+  useEffect(() => {
+    window.addEventListener("resize" , updateWindowWidth);
+    console.log("re-rendered");
+  });
+
+  //Only renders one time 
+  useEffect(() => {
+    console.log("Component mounted")
+  }, )
+    //this will run everytime the name variable changes . Dependency array
+   useEffect(() => {
+    console.log(name);
+
+    return () => {
+      //cleanup
+      console.log("unmounted");
+    }
+   }, [name]);
+
+
+
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>UseEffect hook</h1>
+      <h2>The window widthh is:{windowWidth}</h2>
+      <input 
+      placeholder = "Enter Name"
+      value = {name}
+      onChange={(e) => setName(e.target.value)}
+      />
     </div>
   );
 }
