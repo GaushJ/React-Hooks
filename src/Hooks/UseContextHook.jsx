@@ -1,53 +1,45 @@
-import React from 'react'
-import { FirstName } from '../App';
-
+import React, { useContext } from "react";
+import { FirstName } from "../App";
 
 //React hooks provide a concept  call context
 //REact Context API allows you to easily access data at
-//diiferent levels of the component tree, 
+//diiferent levels of the component tree,
 //without passing prop to every level
 
 //Component A
 const ComA = () => {
-    return(
-        <>
-        
-        <ComB />
-        </>
-        
-    )
+  return (
+    <>
+      <ComB />
+    </>
+  );
 };
 
 //Component B
 const ComB = () => {
-    return(
-        <ComC /> 
-    )
+  const fname = useContext(FirstName);
+  return <div>Name:{fname}</div>;
 };
 
 //Component C
 const ComC = () => {
-    return(
-        <>
-        <FirstName.Consumer>
-        {(fname)=>{
-            return (
-                <div>FirstName:{fname}</div>
-            )
-            
+  return (
+    <>
+      <FirstName.Consumer>
+        {(fname) => {
+          return <div>FirstName:{fname}</div>;
         }}
-        </FirstName.Consumer>
-        
-        </>
-        
-    )
+      </FirstName.Consumer>
+    </>
+  );
 };
 
 const UseContextHook = () => {
-    return (
-       <ComA />
-    )
-}
+  return (
+    <>
+      <ComB />
+    </>
+  );
+};
 
-export default  UseContextHook;
-
+export default UseContextHook;
